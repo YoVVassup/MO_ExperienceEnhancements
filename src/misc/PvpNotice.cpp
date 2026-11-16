@@ -93,6 +93,10 @@ void PvpNotice_EnsureInit(void)
         PN_MakeText(L"大家看我！宣布个事！本机启用了「心灵终结体验拓展 ",
                     shroud ? L"」，也启用了透明迷雾。" : L"」。",
                     L"这是自动发送的，联机不要作弊哦！");
+    else if (Lang_IsRussian())
+        PN_MakeText(L"Включены «Mental Omega Experience Enhancements ",
+                    shroud ? L"» + прозрачная дымка." : L"».",
+                    L"Авто-сообщение, не читерите!");
     else
         PN_MakeText(L"Mental Omega Experience Enhancements ",
                     shroud ? L" (non-vanilla, translucent shroud)" : L" (non-vanilla)",

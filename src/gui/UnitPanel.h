@@ -18,6 +18,9 @@
 /* 读 [UnitPanel] 配置 (幂等)。 */
 void UP_EnsureInit(void);
 
+/* ESC 菜单切语言后重读提示框文本 (标签/护甲名/更多/秒)。 */
+void UP_ReloadLang(void);
+
 /* 面板总开关 ([UnitPanel] Enable)。关掉整块不画、不吞点击。 */
 int  UP_Enabled(void);
 void UP_SetEnabled(int on);

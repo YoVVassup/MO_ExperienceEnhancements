@@ -103,7 +103,7 @@
 #define ESC_COLOR_SW         14
 #define ESC_COLOR_GAP        4
 #define ESC_COLOR_LABEL_W    128
-#define ESC_LANG_N           3
+#define ESC_LANG_N           4
 #define ESC_LANG_GAP         14
 
 /* 左栏最底部: 链接行 (自上而下 bilibili / GitHub, 末行右侧还有版本号) 与
@@ -147,8 +147,10 @@
 
 #define ESC_MISSING_ZH        L"!文本缺失!"
 #define ESC_MISSING_EN        L"!Text missing!"
+#define ESC_MISSING_RU        L"!Текст отсутствует!"
 #define ESC_MISSING_NOTICE_ZH L"!!文本缺失，请检查多语言文件!!"
 #define ESC_MISSING_NOTICE_EN L"!!Text missing - check the language file!!"
+#define ESC_MISSING_NOTICE_RU L"!!Текст отсутствует — проверьте языковой файл!!"
 
 enum {
     GUI_GROUP_GENERAL = 0,
@@ -977,9 +979,9 @@ static int s_SlideDrag = -1;  /* 拖动条按住中的 item, -1 = 无 */
 static int s_SlidePage = EDIT_PAGE_GUI; /* 拖动条所在页 (GUI / 显示 / 游戏控制) */
 static int s_SlideVal;        /* 拖动中的待生效值 (调色比例松开才提交) */
 
-static EscName s_LangLabel[ESC_LANG_N] = { L"ZH", L"EN", L"AUTO" };
+static EscName s_LangLabel[ESC_LANG_N] = { L"ZH", L"EN", L"RU", L"AUTO" };
 static const int s_LangMode[ESC_LANG_N] = {
-    LANG_MODE_ZH, LANG_MODE_EN, LANG_MODE_AUTO
+    LANG_MODE_ZH, LANG_MODE_EN, LANG_MODE_RU, LANG_MODE_AUTO
 };
 
 /* ---------------- init ---------------- */
@@ -1152,12 +1154,25 @@ static void Esc_BuildVersion(void)
     s_Ver[i + 1] = 0;
 }
 
+/* 内置回退文案按当前语言三选一 (语言文件缺键时才用到)。 */
+static const wchar_t* Esc_Fall3(const wchar_t* zh, const wchar_t* en,
+                                const wchar_t* ru)
+{
+    if (Lang_IsChinese()) return zh;
+    return Lang_IsRussian() ? ru : en;
+}
+
 static void Esc_LoadAllText(void)
 {
     if (Lang_IsChinese())
     {
         s_Missing = ESC_MISSING_ZH;
         s_MissingNotice = ESC_MISSING_NOTICE_ZH;
+    }
+    else if (Lang_IsRussian())
+    {
+        s_Missing = ESC_MISSING_RU;
+        s_MissingNotice = ESC_MISSING_NOTICE_RU;
     }
     else
     {
@@ -1179,7 +1194,7 @@ static void Esc_LoadAllText(void)
         }
     }
     if (!Esc_LoadText("Cancel", s_Cancel, 32))
-        lstrcpynW(s_Cancel, Lang_IsChinese() ? L"取消" : L"Cancel", 32);
+        lstrcpynW(s_Cancel, Esc_Fall3(L"取消", L"Cancel", L"Отмена"), 32);
 
     s_GuiMissing = s_TextMissing = s_KeyMissing = 0;
     Esc_GuiText("GuiTitle", s_GuiTitle, ESC_LABEL_CAP);
@@ -1187,7 +1202,7 @@ static void Esc_LoadAllText(void)
     Esc_GuiText("CtrlTitle", s_CtrlTitle, ESC_LABEL_CAP);
     if (!Esc_LoadText("KeyTitle", s_KeyTitle, ESC_LABEL_CAP)) s_KeyMissing = 1;
     if (!Esc_LoadText("GuiHkPress", s_KeyPress, 32))
-        lstrcpynW(s_KeyPress, Lang_IsChinese() ? L"按键…" : L"Press a key", 32);
+        lstrcpynW(s_KeyPress, Esc_Fall3(L"按键…", L"Press a key", L"Клавиша…"), 32);
     ESC_LOAD_FAM(kGroupKey, s_GuiGroup, 0);
     ESC_LOAD_FAM(kLabelKey, s_GuiLabel, 0);
     Esc_GuiText("GuiOn", s_GuiOn, 16);
@@ -5736,6 +5751,7 @@ static void Esc_ApplyLang(HWND hDlg, int seg)
     Lang_SetMode(s_LangMode[seg]);
     EscMenu_ReloadLang();
     MsgText_ReloadLang();
+    UP_ReloadLang();
     Esc_Redraw(hDlg);
 }
 

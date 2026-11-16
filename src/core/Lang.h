@@ -9,11 +9,15 @@ void Lang_EnsureInit(void);
 /* 系统 UI 语言是否为 zh 系列 (用于选择内置缺失提示文案)。 */
 int Lang_IsChinese(void);
 
-/* 语言覆盖 (ESC 菜单运行期切换): 0=AUTO 跟随系统, 1=ZH, 2=EN。
+/* 当前生效语言是否为 ru 系列 (与 Lang_IsChinese 同语义, 供内置文案选语言)。 */
+int Lang_IsRussian(void);
+
+/* 语言覆盖 (ESC 菜单运行期切换): 0=AUTO 跟随系统, 1=ZH, 2=EN, 3=RU。
  * 只改运行时选择, 不写 ini; 切换后调用方需自行重载缓存文本。 */
 #define LANG_MODE_AUTO 0
 #define LANG_MODE_ZH   1
 #define LANG_MODE_EN   2
+#define LANG_MODE_RU   3
 int  Lang_GetMode(void);
 void Lang_SetMode(int mode);
 

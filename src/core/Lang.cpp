@@ -15,6 +15,7 @@
 #define LANG_LOCALE_WCAP    85
 #define LANG_DEFAULT_ZH     "zh-CN"
 #define LANG_DEFAULT_EN     "en-US"
+#define LANG_DEFAULT_RU     "ru-RU"
 #define LANG_VALUE_CAP      512
 
 static int  s_Ready = 0;
@@ -61,6 +62,14 @@ static int Lang_LocaleIsChinese(const char* s)
     if (!s) return 0;
     return (s[0] == 'z' || s[0] == 'Z') &&
            (s[1] == 'h' || s[1] == 'H') &&
+           (s[2] == 0 || s[2] == '-' || s[2] == '_');
+}
+
+static int Lang_LocaleIsRussian(const char* s)
+{
+    if (!s) return 0;
+    return (s[0] == 'r' || s[0] == 'R') &&
+           (s[1] == 'u' || s[1] == 'U') &&
            (s[2] == 0 || s[2] == '-' || s[2] == '_');
 }
 
@@ -122,6 +131,7 @@ static void Lang_SelectFile(void)
     s_Path[0] = 0;
     if (s_Mode == LANG_MODE_ZH) { Lang_TryLocale(LANG_DEFAULT_ZH); return; }
     if (s_Mode == LANG_MODE_EN) { Lang_TryLocale(LANG_DEFAULT_EN); return; }
+    if (s_Mode == LANG_MODE_RU) { Lang_TryLocale(LANG_DEFAULT_RU); return; }
     if (Lang_TryLocale(s_SystemLocale)) return;
     if (Lang_LocaleIsChinese(s_SystemLocale))
     {
@@ -147,8 +157,16 @@ int Lang_IsChinese(void)
 {
     Lang_EnsureInit();
     if (s_Mode == LANG_MODE_ZH) return 1;
-    if (s_Mode == LANG_MODE_EN) return 0;
+    if (s_Mode == LANG_MODE_EN || s_Mode == LANG_MODE_RU) return 0;
     return Lang_LocaleIsChinese(s_SystemLocale);
+}
+
+int Lang_IsRussian(void)
+{
+    Lang_EnsureInit();
+    if (s_Mode == LANG_MODE_RU) return 1;
+    if (s_Mode == LANG_MODE_ZH || s_Mode == LANG_MODE_EN) return 0;
+    return Lang_LocaleIsRussian(s_SystemLocale);
 }
 
 int Lang_GetMode(void)
@@ -159,7 +177,7 @@ int Lang_GetMode(void)
 
 void Lang_SetMode(int mode)
 {
-    if (mode < LANG_MODE_AUTO || mode > LANG_MODE_EN) mode = LANG_MODE_AUTO;
+    if (mode < LANG_MODE_AUTO || mode > LANG_MODE_RU) mode = LANG_MODE_AUTO;
     Lang_EnsureInit();
     if (mode == s_Mode) return;
     s_Mode = mode;

@@ -22,6 +22,7 @@
 #include "SidebarSkin.h"
 #include "SingleUnload.h"
 #include "UnitPanel.h"
+#include "Lang.h"
 #include "VecText.h"
 
 #define UP_SECTION "UnitPanel"
@@ -437,6 +438,9 @@ static unsigned Up_AppendId(char* buf, unsigned cap, unsigned q, const char* id,
 
 /* ---------------- 配置 ---------------- */
 
+/* 定义在提示框文本一节 (k_ArmorNameDef 之后); 这里只要前向声明。 */
+static void Up_LoadLang(void);
+
 void UP_EnsureInit(void)
 {
     static unsigned s_RetryMs = 0;
@@ -455,6 +459,7 @@ void UP_EnsureInit(void)
         if (!g_IniPath[0] || !g_Log) return;
     }
     s_Init = 1;
+    Up_LoadLang();
     s_Enable = GetPrivateProfileIntA(UP_SECTION, "Enable", 1, g_IniPath) ? 1 : 0;
     s_Margin = GetPrivateProfileIntA(UP_SECTION, "Margin", 0, g_IniPath);
     s_FontPx = GetPrivateProfileIntA(UP_SECTION, "FontPx", 11, g_IniPath);
@@ -485,6 +490,13 @@ void UP_EnsureInit(void)
     q = AppendCStr(buf, q, " face=", sizeof(buf));
     AppendCStr(buf, q, s_FaceCfg, sizeof(buf));
     LogLine(buf);
+}
+
+/* ESC 菜单切语言后由 EscMenu 调: 重读提示框文本。未初始化则跳过
+ * (那次 UP_EnsureInit 会自己加载)。 */
+void UP_ReloadLang(void)
+{
+    if (s_Init) Up_LoadLang();
 }
 
 /* ---------------- 运行态开关 ----------------
@@ -1914,7 +1926,7 @@ static const char* const k_ArmorId[UP_ARMOR_N] = {
     "", "none", "flak", "plate", "light", "medium", "heavy",
     "wood", "steel", "concrete", "special_1", "special_2"
 };
-static const wchar_t* const k_ArmorName[UP_ARMOR_N] = {
+static const wchar_t* const k_ArmorNameDef[UP_ARMOR_N] = {
     L"",
     L"无防护",                     /* 无甲 */
     L"防弹衣",                     /* 布甲 */
@@ -1928,6 +1940,10 @@ static const wchar_t* const k_ArmorName[UP_ARMOR_N] = {
     L"特制1",                    /* 特殊1 */
     L"特制2"                     /* 特殊2 */
 };
+/* 语言文件 [UnitPanel] Armor1..Armor11 覆盖 (下标 = k_ArmorId 顺序);
+ * UP_LoadLang 填指针表, 缺键指回上面的默认。 */
+static wchar_t s_ArmorName[UP_ARMOR_N][UP_TIP_LINE_CAP];
+static const wchar_t* k_ArmorName[UP_ARMOR_N];
 
 static int Up_ArmorKind(void* ini, const char* typeId)
 {
@@ -2324,10 +2340,60 @@ static int Up_PctBoost(wchar_t* d, int cap, int pct, int after, int afterMilli)
     return n;
 }
 
+/* ---------------- 提示框文本 (语言文件 [UnitPanel]) ----------------
+ * 行标签 / "更多" / "秒" 后缀来自语言文件, 缺键回落到中文默认 (默认保持
+ * hex 数组, 源码不新增非 ASCII 字面量)。UP_EnsureInit 加载一次, ESC 菜单
+ * 切语言时经 UP_ReloadLang 重读 —— 与 SaveShot/MsgText 同一机制。 */
+#define UP_TXT_CAP 16
+static const wchar_t k_oreD[]   = { 0x77FF, 0x77F3, 0 };   /* 矿石 */
+static const wchar_t k_fireD[]  = { 0x706B, 0x529B, 0 };   /* 火力 */
+static const wchar_t k_lifeD[]  = { 0x751F, 0x547D, 0 };   /* 生命 */
+static const wchar_t k_spdD[]   = { 0x901F, 0x5EA6, 0 };   /* 速度 */
+static const wchar_t k_armorD[] = { 0x62A4, 0x7532, 0 };   /* 护甲 */
+static const wchar_t k_healD[]  = { 0x81EA, 0x6108, 0 };   /* 自愈 */
+static const wchar_t k_moreD[]  = { 0x66F4, 0x591A, 0 };   /* 更多 */
+static const wchar_t k_secD[]   = { 0x79D2, 0 };           /* 秒 */
+static wchar_t s_Ore[UP_TXT_CAP], s_Fire[UP_TXT_CAP], s_Life[UP_TXT_CAP];
+static wchar_t s_Spd[UP_TXT_CAP], s_ArmorLbl[UP_TXT_CAP], s_Heal[UP_TXT_CAP];
+static wchar_t s_More[UP_TXT_CAP], s_Sec[8];
+static const wchar_t* k_ore = k_oreD,     *k_fire = k_fireD;
+static const wchar_t* k_life = k_lifeD,   *k_spd = k_spdD;
+static const wchar_t* k_armor = k_armorD, *k_heal = k_healD;
+static const wchar_t* k_more = k_moreD,   *k_sec = k_secD;
+
+static void Up_LoadLang(void)
+{
+    char key[16];
+    int i;
+
+    if (Lang_GetW(UP_SECTION, "TipOre",   k_oreD,   s_Ore,      UP_TXT_CAP)) k_ore = s_Ore;
+    if (Lang_GetW(UP_SECTION, "TipFire",  k_fireD,  s_Fire,     UP_TXT_CAP)) k_fire = s_Fire;
+    if (Lang_GetW(UP_SECTION, "TipLife",  k_lifeD,  s_Life,     UP_TXT_CAP)) k_life = s_Life;
+    if (Lang_GetW(UP_SECTION, "TipSpeed", k_spdD,   s_Spd,      UP_TXT_CAP)) k_spd = s_Spd;
+    if (Lang_GetW(UP_SECTION, "TipArmor", k_armorD, s_ArmorLbl, UP_TXT_CAP)) k_armor = s_ArmorLbl;
+    if (Lang_GetW(UP_SECTION, "TipHeal",  k_healD,  s_Heal,     UP_TXT_CAP)) k_heal = s_Heal;
+    if (Lang_GetW(UP_SECTION, "More",     k_moreD,  s_More,     UP_TXT_CAP)) k_more = s_More;
+    if (Lang_GetW(UP_SECTION, "PerSec",   k_secD,   s_Sec,      8))          k_sec = s_Sec;
+
+    /* Armor1..Armor11: 1 起 (0 恒为空名), 下标与 k_ArmorId 同序。 */
+    k_ArmorName[0] = L"";
+    for (i = 1; i < UP_ARMOR_N; i++)
+    {
+        lstrcpynA(key, "Armor", sizeof(key));
+        UtoA((unsigned)i, key + 5);
+        k_ArmorName[i] = k_ArmorNameDef[i];
+        if (Lang_GetW(UP_SECTION, key, k_ArmorNameDef[i],
+                      s_ArmorName[i], UP_TIP_LINE_CAP))
+            k_ArmorName[i] = s_ArmorName[i];
+    }
+}
+
 /* "0.6/秒" (速率 = 每游戏秒回多少 HP; 只在有自愈时调用)。 */
 static int Up_HealValue(wchar_t* d, int cap, int milli)
 {
-    int n;
+    int n, i;
+    const int pad = 2 + lstrlenW(k_sec);        /* '/' + 后缀 + NUL */
+
     if (milli < 100)                             /* 不到 0.1 */
     {
         d[0] = L'<';
@@ -2338,10 +2404,12 @@ static int Up_HealValue(wchar_t* d, int cap, int milli)
     }
     else
     {
-        n = Up_AppMilli(d, cap - 3, milli);
+        n = Up_AppMilli(d, cap - pad, milli);
     }
+    if (n < 0) n = 0;
+    if (n + pad > cap) n = cap - pad;
     d[n++] = L'/';
-    d[n++] = 0x79D2;                             /* 秒 */
+    for (i = 0; k_sec[i] && n < cap - 1; i++) d[n++] = k_sec[i];
     d[n] = 0;
     return n;
 }
@@ -2378,12 +2446,6 @@ static int Up_InkMetrics(int px, int* top, int* h)
  * 名字受 cameo 尺寸限制会被截, 有的单位没图标)。 */
 static void Up_DrawTip(unsigned char* base, int pitch, int W, int H)
 {
-    static const wchar_t k_ore[]   = { 0x77FF, 0x77F3, 0 };   /* 矿石 */
-    static const wchar_t k_fire[]  = { 0x706B, 0x529B, 0 };   /* 火力 */
-    static const wchar_t k_life[]  = { 0x751F, 0x547D, 0 };   /* 生命 */
-    static const wchar_t k_spd[]   = { 0x901F, 0x5EA6, 0 };   /* 速度 */
-    static const wchar_t k_armor[] = { 0x62A4, 0x7532, 0 };   /* 护甲 */
-    static const wchar_t k_heal[]  = { 0x81EA, 0x6108, 0 };   /* 自愈 */
     const UpStat* st = &s_Tip;
     const int basic = st->basic;
     const wchar_t* lab[UP_TIP_LINES];
@@ -2479,7 +2541,7 @@ static void Up_DrawTip(unsigned char* base, int pitch, int W, int H)
     for (i = 0; i < nl; i++)
     {
         int w;
-        w = RenderLine(lab[i], 2);
+        w = RenderLine(lab[i], lstrlenW(lab[i]));
         if (w > labW) labW = w;
         w = RenderLine(left[i], leftN[i]);
         if (w > leftAll) leftAll = w;
@@ -2542,7 +2604,7 @@ static void Up_DrawTip(unsigned char* base, int pitch, int W, int H)
     for (i = 0; i < nl; i++)
     {
         int ty = y - inkTop;
-        Up_Text(base, pitch, W, H, cx, ty, lab[i], 2,
+        Up_Text(base, pitch, W, H, cx, ty, lab[i], lstrlenW(lab[i]),
                 tr, tg, tb, 0, 0, 0);
         Up_Text(base, pitch, W, H, xL, ty, left[i], leftN[i],
                 tr, tg, tb, 0, 0, 0);
@@ -3168,10 +3230,9 @@ static void Up_DrawInfoCell(unsigned char* base, int pitch, int W, int H,
 static void Up_DrawMoreCell(unsigned char* base, int pitch, int W, int H,
                             int x, int y)
 {
-    static const wchar_t s_more[] = { 0x66F4, 0x591A, 0 };   /* 更多 */
     Up_DrawCellBg(base, pitch, W, H, x, y);
-    Up_Text(base, pitch, W, H, 0, y + (UP_CELL_H - g_G->adv) / 2, s_more, 2,
-            235, 235, 235, 1, x, UP_CELL_W);
+    Up_Text(base, pitch, W, H, 0, y + (UP_CELL_H - g_G->adv) / 2, k_more,
+            lstrlenW(k_more), 235, 235, 235, 1, x, UP_CELL_W);
 }
 
 /* ---------------- 绘制入口 ---------------- */
