@@ -130,18 +130,25 @@ void OU_CopyEvt(char* dst, const char* src)
     for (i = 0; i < EVT_SIZE; i++) dst[i] = src[i];
 }
 
-/* 现造 Timings (与原版追加体同函数)。内联 call 须声明 ebx/esi/edi/ebp
- * 被破坏, 否则后续账本写进垃圾值。 */
+/* 现造 Timings (与原版追加体同函数)。内联 call 须声明 ebx/esi/edi 被破坏,
+ * 否则后续账本写进垃圾值。
+ * ebp 不能放进 clobber 列表: 它是帧指针, 函数一旦真的需要帧指针, GCC 直接
+ * 报 "bp cannot be used in 'asm' here" (-O0 必炸, -O2 看这个函数有没有被
+ * 内联进一个需要帧指针的调用者, 所以时好时坏)。改成 asm 内 push/pop: 调用
+ * 前后 ebp 真值不变 —— 正是编译器对 callee-saved 寄存器的假设, 引擎那边对
+ * ebp 的破坏也被这对 pop 抹掉, 原本这个 clobber 要防的垃圾账本照样防住。 */
 static unsigned OU_SndTimings(void)
 {
     Fn_SndCb snd = *(Fn_SndCb*)0x7E1530u;
     unsigned r;
     __asm__ volatile (
+        "pushl %%ebp\n\t"
         "call *%1\n\t"
+        "popl %%ebp\n\t"
         "movl %%eax, %0"
         : "=r" (r)
         : "r" (snd)
-        : "ecx", "edx", "ebx", "esi", "edi", "ebp", "cc", "memory");
+        : "ecx", "edx", "ebx", "esi", "edi", "cc", "memory");
     return r;
 }
 
