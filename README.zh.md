@@ -9,7 +9,7 @@
 ![alt text](docs/imgs/MO_logo_header.png)
 
 ## 当前项目做了什么?
-这里是简要说明，[查看更详细的功能演示和说明](docs/1.GUI功能与文本显示.md)  
+这里是简要说明，[查看更详细的功能演示和说明](docs/1.GUI.md)  
 
 
 | 更好的文本显示 | 建筑功能 |
@@ -65,7 +65,7 @@
 游戏内按下ESC键，即可显示扩展的设置菜单（这并非全部）。  
 在 `MOExperience.ini` 中写了详细的使用说明，详细的配置可修改此文件。  
 快捷键配置可参考`Hotkey.md`。  
-自定义超武排序，将喜欢的放在前面，可参考`超武列表.md`和配置文件中的例子，目前默认将铁幕，立场护盾放在了前面。
+自定义超武排序，将喜欢的放在前面，可参考`SuperweaponList.md`和配置文件中的例子，目前默认将铁幕，立场护盾放在了前面。
 
 ## 开发与构建
 
@@ -90,7 +90,7 @@ x渲染上GPU优化
 x实现回放功能和添加内部列表  
 
 ## 赞助 tokens
-### -> [赛博乞讨](https://github.com/MagicShiba/MO_ExperienceEnhancements/blob/master/docs/赛博乞讨.md)
+### -> [赛博乞讨](docs/Sponsor.md)
 ![alt text](docs/img_sbqt/h-凝视1.png)
 
 ## 笔记(notes)

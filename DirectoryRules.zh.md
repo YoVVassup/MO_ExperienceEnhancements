@@ -1,4 +1,4 @@
-**语言: [English](目录规范.md) | [Русский](目录规范.ru.md) | 简体中文**
+**语言: [English](DirectoryRules.md) | [Русский](DirectoryRules.ru.md) | 简体中文**
 
 # 目录规范
 写给agent的本地规范。

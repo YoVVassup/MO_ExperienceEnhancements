@@ -1,4 +1,4 @@
-**Язык: [English](赛博乞讨.md) | Русский | [简体中文](赛博乞讨.zh.md)**
+**Язык: [English](Sponsor.md) | Русский | [简体中文](Sponsor.zh.md)**
 
 # Киберпопрошайничество — поддержите разработку
 ![alt text](img_sbqt/mm_reward_qrcode_1791698669948.png)

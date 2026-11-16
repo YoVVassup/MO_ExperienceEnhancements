@@ -1,4 +1,4 @@
-**Язык: [English](超武列表.md) | Русский | [简体中文](超武列表.zh.md)**
+**Язык: [English](SuperweaponList.md) | Русский | [简体中文](SuperweaponList.zh.md)**
 
 # Список супероружий (MO / rulesmo.ini)
 

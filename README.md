@@ -10,7 +10,7 @@ You may use it in online PvE, but not in PvP — that is not what it is intended
 ![alt text](docs/imgs/MO_logo_header.png)
 
 ## What does this project do?
-Brief overview — [see a more detailed feature demo and explanation](docs/1.GUI功能与文本显示.md)  
+Brief overview — [see a more detailed feature demo and explanation](docs/1.GUI.md)  
 
 
 | Better text display | Building features |
@@ -66,7 +66,7 @@ Put `MOExperience.dll`, `MOExperience.ini` and the `MOExperienceResources` folde
 Press ESC in game to open the extended settings menu (this is not everything).  
 `MOExperience.ini` contains detailed usage instructions; edit that file for fine-grained configuration.  
 See `Hotkey.md` for hotkey configuration.  
-For custom superweapon ordering (put your favorites first), see `超武列表.md` and the examples in the config file; by default Iron Curtain and Force Shield are placed first.
+For custom superweapon ordering (put your favorites first), see `SuperweaponList.md` and the examples in the config file; by default Iron Curtain and Force Shield are placed first.
 
 ## Development and build
 
@@ -91,7 +91,7 @@ x GPU-side rendering optimizations
 x Replay support and an internal list  
 
 ## Sponsor tokens
-### -> [Cyber-begging](https://github.com/MagicShiba/MO_ExperienceEnhancements/blob/master/docs/赛博乞讨.md)
+### -> [Cyber-begging](docs/Sponsor.md)
 ![alt text](docs/img_sbqt/h-凝视1.png)
 
 ## Notes

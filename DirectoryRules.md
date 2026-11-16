@@ -1,4 +1,4 @@
-**Language: English | [Русский](目录规范.ru.md) | [简体中文](目录规范.zh.md)**
+**Language: English | [Русский](DirectoryRules.ru.md) | [简体中文](DirectoryRules.zh.md)**
 
 # Directory Rules
 Local rules written for agents.

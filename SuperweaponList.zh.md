@@ -1,4 +1,4 @@
-**语言: [English](超武列表.md) | [Русский](超武列表.ru.md) | 简体中文**
+**语言: [English](SuperweaponList.md) | [Русский](SuperweaponList.ru.md) | 简体中文**
 
 # 超武清单 (MO / rulesmo.ini)
 
