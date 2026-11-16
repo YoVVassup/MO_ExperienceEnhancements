@@ -1,104 +1,107 @@
-# 心灵终结体验优化拓展
-[本项目](https://github.com/MagicShiba/MO_ExperienceEnhancements)旨在提高《[心灵终结](http://mentalomega.com/)》的游戏体验，修复游戏bug。  
-在为游戏添加更多新的功能、减少操作复杂性的同时，坚持做到不影响联机功能。  
-不涉及任何游戏内ini修改。  
-支持版本：3.3.6 ，理论上也兼容使用相同 ares 的mod。  
-你可以在联机pve中使用，但不要用于PVP，这不在预期内，我不对玩家抱有恶意，但用于pvp将会自动重复告知其他玩家在作弊。  
+**Language: English | [Русский](README.ru.md) | [简体中文](README.zh.md)**
+
+# Mental Omega Experience Enhancements
+
+[This project](https://github.com/MagicShiba/MO_ExperienceEnhancements) aims to improve the game experience of [Mental Omega](http://mentalomega.com/) and fix game bugs.  
+While adding new features and reducing operational complexity, it always keeps multiplayer functionality intact.  
+It does not modify any in-game `.ini` files.  
+Supported version: 3.3.6; in theory it is also compatible with other mods that use the same ARES.  
+You may use it in online PvE, but not in PvP — that is not what it is intended for. I bear no ill will toward players, but using it in PvP will automatically and repeatedly notify the other players that you are cheating.  
 ![alt text](docs/imgs/MO_logo_header.png)
 
-## 当前项目做了什么?
-这里是简要说明，[查看更详细的功能演示和说明](docs/1.GUI功能与文本显示.md)  
+## What does this project do?
+Brief overview — [see a more detailed feature demo and explanation](docs/1.GUI功能与文本显示.md)  
 
 
-| 更好的文本显示 | 建筑功能 |
+| Better text display | Building features |
 | -- | -- |
-| 居中，持久，随时查看的战役文本，不再被挤占。<br>操作信息踢出主要文本，和雷达事件单独显示，点击跳转事件<br>修复输入法位置错误问题，更好的输入框和可自定义预设文本。<br>可自定义文本字体和显示大小。 | 建造队列，建造位置预览，<br>建造时驱离单位<br>折线集结点(生产建筑路径点)<br>快速维修(双击或自动) |
+| Centered, persistent campaign text you can check at any time — no longer pushed off screen.<br>Operation messages are evicted from the main text and shown separately as radar events; click to jump to the event.<br>Fixes wrong IME position; a better input box with customizable preset texts.<br>Customizable text font and display size. | Build queue, placement preview,<br>expel units while placing<br>polyline rally points (waypoints for production buildings)<br>quick repair (double-click or automatic) |
 
-| 侧边栏 | 底栏 |
+| Sidebar | Bottom bar |
 | -- | -- |
-| 可自定义的超武侧边栏，获得干净的防御栏<br>隐藏侧栏，全屏或只显示雷达(提供触发支持)<br>快速跳转翻页的滚动条<br>电力状态显示 | 缩放画面，细看或更广阔的视野，可显示全图<br>暂停和帧进，逐帧下令<br>网格显示，查看不可建造或通行<br>无ui截图，可配合缩放截取全图 |
+| Customizable superweapon sidebar for a clean defense tab.<br>Hide the sidebar: fullscreen or radar-only (with trigger support).<br>Scrollbar with fast page jumping.<br>Power status display. | Zoom the view for a closer look or a wider field, full map view available.<br>Pause and frame stepping — issue orders frame by frame.<br>Grid display to see unbuildable / impassable cells.<br>UI-free screenshots that work with zoom to capture the whole map. |
 
-| 摆基地截图大加强！ | 许愿集大成之处！ |
+| Big upgrades for base screenshots! | The wish list comes true! |
 | -- | -- |
-| 添加详细的**环境控制功能**<br>云朵雾气投影，光照控制，雨雪天气控制<br>你可以调整过于黑的地图光照(旧版心血结晶)。<br>可以缩放，暂停，无UI截图(包含天气)<br>甚至通过**缩放**在游戏内直接原分辨率截取整张地图！<br>你可以调节自己的颜色，甚至彩虹色！<br>无ui截图，隐藏侧栏更大区域截图 | **信息面板区域**<br>选中战机时可显示弹药，不用切换屏幕查看了<br>显示单位血量、经验值、加成信息<br>从多组单位中选中某一类型单位,右键移除<br>选中载具时显示载员内容<br>单独卸载某一成员，而不是全部下车，也支持建筑<br>从载具中下达路径点 |
-| **小窗口功能**  | **边缘按钮**  |
-| 支持自动跳转事件。(对应空格跳转的雷达事件)<br>支持远程下令，可在小窗中查看和操作其它区域(如致命冲击)<br>支持无焦点跟随(按F,但不会因取消丢失目标)  | 收藏功能，并带有箭头指示，可设中心显示或边缘显示<br>也支持显示通讯信标位置<br>wasd移动功能，可用于单兵作战  |
+| Detailed **environment controls**<br>Cloud and fog shadows, lighting control, rain/snow weather control.<br>You can fix maps that are too dark (legacy work).<br>Zoom, pause, UI-free screenshots (weather included).<br>You can even **zoom** and grab the entire map at native resolution in-game!<br>Adjust your color, even rainbow!<br>UI-free screenshots with the sidebar hidden for a larger area. | **Info panel area**<br>Ammo shown for selected aircraft — no need to switch screens.<br>Unit health, XP and bonus info.<br>Select all units of one type from a mixed group; right-click to remove.<br>Passenger list for selected vehicles.<br>Unload a single crew member instead of all (buildings too).<br>Issue waypoints from inside a vehicle. |
+| **Small window**  | **Edge buttons**  |
+| Auto-follows radar events (the same events you jump to with Space).<br>Remote orders: view and operate other areas from the small window (e.g. Fatal Trigger).<br>Focus-free following (press F; the target is not lost when you cancel).  | Favorites with arrow indicators — center or edge display.<br>Also shows communication beacon locations.<br>WASD movement for microing individual units.  |
 
-| 游戏控制与界面优化杂项 | |
+| Game control and UI misc | |
 | -- | -- |
-| 更细粒度的游戏速度调节  | 存档时也储存一份屏幕截图，易于区分游戏  |
-| 心控单位过滤  | 解除128操作限制  |
-| 侵略模式，自动攻击范围/警戒区域敌人  | 解除路径点16/128限制  |
-| 简化移动攻击，允许自定义快捷键  | 解除500显示时框选上限  |
-| 修复T键对单位难以生效  | 飞行器支持路径点  |
-| 攻击命令过滤无攻击单位  | 修复地图小于视图时显示抖动  |
-| 可禁用心控来的单位损失提示  | 修复读档后观战失效和任意AI被击败后游戏结束  |
-| 查看箱子类型，基本只支持战役<br>(随机箱子不支持) | 在战役结束添加退出游戏<br>(因继续下一关在有些战役会卡触发和状态)  |
-| 支持光照混合切换<br>(默认光照，和触发光照切换)  | 修复光照变化后锯齿和读档光照问题<br>支持矿石亮度调节 |
-| 自动删除旧信标和解除单机信标限制  | 局部选中单位欢呼，而非全局欢呼  |
-| 解决读档后丢失盟友旁建造问题  | 修复cncddraw导致设置界面占用cpu过高问题  |
+| Finer-grained game speed control  | Stores a screenshot with every save for easy identification  |
+| Mind-controlled unit filtering  | Lifts the 128 order limit  |
+| Aggressive mode: auto-attack enemies in range / alert area  | Lifts the 16/128 waypoint limit  |
+| Simplified attack-move with customizable hotkeys  | Lifts the 500-unit box-select display limit  |
+| Fixes the T key often not working on units  | Waypoint support for aircraft  |
+| Attack command filters out units that cannot attack  | Fixes screen jitter when the map is smaller than the view  |
+| Can mute alerts about losing mind-controlled units  | Fixes observer mode breaking after loading, and the game ending after any AI is defeated  |
+| View crate types (mostly campaign only;<br>random crates are not supported) | Adds an exit button on the score screen<br>(continuing to the next mission can stall triggers/state in some campaigns)  |
+| Lighting blend switching<br>(default lighting vs trigger lighting)  | Fixes jagged edges after lighting changes and lighting issues after loading<br>Supports ore brightness adjustment  |
+| Auto-removes old beacons and lifts the single-player beacon limit  | Cheering applies to locally selected units only, not globally  |
+| Fixes losing ally-side construction after loading  | Fixes cnc-ddraw causing high CPU usage in the options screen  |
 
-**模糊下令 (也叫智能中键，但可修改快捷键)**
-- 中键点击移动，空军分散寻位，陆军聚团螺旋排列，便于铁幕之类使用
-- 中键划战线移动，快速简单阵型，分配到线上
-- 中键巡逻圈，z+中键点击自动建立小巡逻圈，拖动快速建立巡逻圈
-- 基地车类单位展开预览，划线分配位置，自动展开，shift强制直线。
-- 自动砍树，ctrl + z + 中键，不需要点到树上。
-- 快速自动选择目标，shift + 中键 ，批量进驻，批量占领，批量维修，坦克进碉堡等 
-- 模糊下令快速选择目标，ctrl+中键点击，针对蜘蛛之类的难选单位(生态位基本被shift+中键占了，最初没计划太强...)
-
-
-为了尽快发布第一版，让大家能够体验到新功能，因此有些已知的细节小bug暂时没有修复。  
-有些在回复中的功能暂未实现。  
-
-### 自动装车在哪？
-查看项目：[自动装车](https://github.com/MagicShiba/MO_AutoLoad)  
-目前不打算合并。
-
-## 使用说明
-将 `MOExperience.dll`、`MOExperience.ini` 与 `MOExperienceResources` 文件夹放在游戏根目录内。  
-**注意**:如果遇到界面错乱，请更新或使用发布中附带的cnc-ddraw。
-
-### 功能配置
-游戏内按下ESC键，即可显示扩展的设置菜单（这并非全部）。  
-在 `MOExperience.ini` 中写了详细的使用说明，详细的配置可修改此文件。  
-快捷键配置可参考`Hotkey.md`。  
-自定义超武排序，将喜欢的放在前面，可参考`超武列表.md`和配置文件中的例子，目前默认将铁幕，立场护盾放在了前面。
-
-## 开发与构建
-
-开发类似项目建议查看：[自动装车](https://github.com/MagicShiba/MO_AutoLoad)  
-在说明中简要说明了如何开发这类插件，可从简单功能下手，相信AI实力。
-
-环境：
-- 环境：`mingw-i686`
-- 构建脚本：build-fast.bat
-- 全量构建：build-full.bat
-
-未在项目中列出的文件夹：  
-参考文件夹 即 phobos,yrpp,临时地图等参考  
-ini文件夹 即 rulesmo.ini等、ini查询文档、单位名等scf表、地图参考
+**Fuzzy orders (a.k.a. smart middle mouse — hotkeys are customizable)**
+- Middle-click to move: air units scatter to find spots, ground units pack into a spiral — handy for Iron Curtain and similar
+- Middle-drag a battle line: quick simple formation, assigns units along the line
+- Middle-click patrol circle: Z + middle-click creates a small patrol circle, drag to create one quickly
+- Deployment preview for MCV-type units: draw a line to assign positions, auto-deploy; Shift forces a straight line
+- Auto tree chopping: Ctrl + Z + middle-click, no need to click on an actual tree
+- Quick automatic target selection: Shift + middle-click — mass garrison, mass capture, mass repair, tanks into bunkers, etc.
+- Fuzzy-order quick target selection: Ctrl + middle-click, for hard-to-select units like spiders (that niche was mostly taken by Shift+middle-click; it was not meant to be that strong originally...)
 
 
-## 计划
-x类红三和将军的技能选择和单位信息显示-显示经验血量精确值,命令指示,能力槽位  
-x补充信标功能,信标菜单,快速选择文本  
-x副官辅助小操作功能,或许是新项目  
-x渲染上GPU优化  
-x实现回放功能和添加内部列表  
+To ship the first version as fast as possible, some known minor bugs are temporarily unfixed.  
+Some features promised in replies are not implemented yet.  
 
-## 赞助 tokens
-### -> [赛博乞讨](https://github.com/MagicShiba/MO_ExperienceEnhancements/blob/master/docs/赛博乞讨.md)
+### Where is auto-load?
+See the project: [MO_AutoLoad](https://github.com/MagicShiba/MO_AutoLoad)  
+No plans to merge it for now.
+
+## Usage
+Put `MOExperience.dll`, `MOExperience.ini` and the `MOExperienceResources` folder into the game root directory.  
+**Note**: if the interface is broken, update or use the cnc-ddraw bundled with the release.
+
+### Feature configuration
+Press ESC in game to open the extended settings menu (this is not everything).  
+`MOExperience.ini` contains detailed usage instructions; edit that file for fine-grained configuration.  
+See `Hotkey.md` for hotkey configuration.  
+For custom superweapon ordering (put your favorites first), see `超武列表.md` and the examples in the config file; by default Iron Curtain and Force Shield are placed first.
+
+## Development and build
+
+If you want to develop similar projects, take a look at [MO_AutoLoad](https://github.com/MagicShiba/MO_AutoLoad)  
+Its documentation briefly explains how to develop plugins like this — start with something simple, and trust in AI.
+
+Environment:
+- Toolchain: `mingw-i686`
+- Build script: build-fast.bat
+- Full build: build-full.bat
+
+Folders not listed in the project:  
+`reference` — phobos, yrpp, temporary maps and other references  
+`ini` — rulesmo.ini etc., INI lookup docs, unit name tables, map references
+
+
+## Plans
+x-style C&C3 / Generals-style skill selection and unit info display — exact XP/HP values, command indicators, ability slots  
+x Beacon extras: beacon menu, quick preset text selection  
+x Aide helper features, maybe a new project  
+x GPU-side rendering optimizations  
+x Replay support and an internal list  
+
+## Sponsor tokens
+### -> [Cyber-begging](https://github.com/MagicShiba/MO_ExperienceEnhancements/blob/master/docs/赛博乞讨.md)
 ![alt text](docs/img_sbqt/h-凝视1.png)
 
-## 笔记(notes)
-由AI编写的功能实现原理，踩坑记录，注意事项等。  
-这基本不是给用户看的，给需要参考实现功能的人的AI使用。
+## Notes
+Implementation principles, pitfalls and caveats, written by AI.  
+This is basically not meant for users — it is for the AI of someone who needs to reference the implementation.
 
-## 参考项目
-[phobos](https://github.com/Phobos-developers/Phobos) ：一个强大的扩展。  
-[yrpp](https://github.com/Ares-Developers/YRpp) ：提供与 C++ 引擎补丁/扩展中的 Yuri's Revenge 引擎交互的能力。
+## Reference projects
+[phobos](https://github.com/Phobos-developers/Phobos): a powerful extension.  
+[yrpp](https://github.com/Ares-Developers/YRpp): provides the ability to interact with the Yuri's Revenge engine from C++ engine patches/extensions.
 
-## 相关项目
-[红警2字体编辑器](https://github.com/MagicShiba/Ra2FontEditor)  
-[改进的cnc-ddraw](https://github.com/MagicShiba/cnc-ddraw/releases)
+## Related projects
+[Ra2FontEditor](https://github.com/MagicShiba/Ra2FontEditor) — RA2 font editor  
+[Improved cnc-ddraw](https://github.com/MagicShiba/cnc-ddraw/releases)

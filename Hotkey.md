@@ -1,78 +1,80 @@
-# 快捷键写法 (Hotkey)
+**Language: English | [Русский](Hotkey.ru.md) | [简体中文](Hotkey.zh.md)**
 
-适用: `MOExperience.ini` 里 `[PatrolCircle]`、`[SmartOrder]`、`[TreeChop]`、
-`[FuzzyAttack]` 的 `Hotkey` 项、`[Features]` 的 `MindSelect`/`AttackMove` 项、
-`[SWSidebar]` 的 `ToggleKey` 项、`[Sidebar]` 的 `ToggleKey` 项与
-`[BottomBar]` 的 `PauseHotkey` 项。
+# Hotkey syntax
 
-## 规则
+Applies to: the `Hotkey` entries of `[PatrolCircle]`, `[SmartOrder]`, `[TreeChop]` and
+`[FuzzyAttack]` in `MOExperience.ini`, the `MindSelect`/`AttackMove` entries of `[Features]`,
+the `ToggleKey` entries of `[SWSidebar]` and `[Sidebar]`, and the
+`PauseHotkey` entry of `[BottomBar]`.
 
-- 格式: 修饰键 + 按键, 用 `+` 或空格连接。例: `Shift+P`、`Ctrl+Z+Middle`。
-- 大小写不敏感: `ctrl+z` = `Ctrl+Z`。
-- 空格/Tab 随便加, 自动忽略: `  ctrl + z  ` = `Ctrl+Z`。
-- 行尾 `;` 后面是注释, 会被截掉: `Hotkey=Middle ; 散开` 只取 `Middle`。
-- 多个按键时, **最后一个是主键, 前面的是必须按住的键**:
-  `Ctrl+Z+Middle` = 按住 Ctrl 和 Z, 再按中键。
-- `None` / `Off` / `Disabled` = 关掉该功能。
-- 键缺失、空串、写错 → 用默认值, 不会炸。
-- 单行开关 (`[Features]` 的 `MindSelect`/`AttackMove`): `0` = 禁用,
-  写快捷键 = 启用并改键, 缺键 = 默认快捷键启用。
+## Rules
 
-## 修饰键
+- Format: modifier(s) + key, joined by `+` or a space. Example: `Shift+P`, `Ctrl+Z+Middle`.
+- Case-insensitive: `ctrl+z` = `Ctrl+Z`.
+- Spaces/Tab anywhere are ignored: `  ctrl + z  ` = `Ctrl+Z`.
+- A trailing `;` starts a comment and is cut off: `Hotkey=Middle ; scatter` keeps only `Middle`.
+- With multiple keys, **the last one is the primary key, the preceding ones must be held**:
+  `Ctrl+Z+Middle` = hold Ctrl and Z, then press the middle mouse button.
+- `None` / `Off` / `Disabled` = the feature is turned off.
+- Missing key, empty string or a typo → the default is used; nothing breaks.
+- Single-line toggles (`MindSelect`/`AttackMove` in `[Features]`): `0` = disabled,
+  a hotkey = enabled with that key, missing entry = enabled with the default hotkey.
 
-| 写法 | 说明 |
+## Modifiers
+
+| Syntax | Meaning |
 |---|---|
-| `Ctrl` (`Control`) | Ctrl 键 |
-| `Shift` | Shift 键 |
-| `Alt` (`Menu`) | Alt 键 |
-| `Win` (`Windows`) | Win 键 |
+| `Ctrl` (`Control`) | Ctrl key |
+| `Shift` | Shift key |
+| `Alt` (`Menu`) | Alt key |
+| `Win` (`Windows`) | Win key |
 
-## 按键
+## Keys
 
-单个字母/数字直接写: `A`~`Z`(字母键)、`0`~`9`(数字键)、`F1`~`F24`。
+Single letters/digits are written directly: `A`~`Z` (letter keys), `0`~`9` (digit keys), `F1`~`F24`.
 
-注意: 多位纯数字按老 `TriggerVK` 数值兼容, 如 `80`=P、`90`=Z、`4`=中键;
-单个 `4` 则是数字键 4。要中键请写 `Middle`。
+Note: multi-digit pure numbers are interpreted as legacy `TriggerVK` values, e.g. `80`=P,
+`90`=Z, `4`=middle mouse button; a single `4` is the digit 4. Write `Middle` for the middle button.
 
-### 功能键
+### Function keys
 
-| 写法 | 按键 |
+| Syntax | Key |
 |---|---|
-| `Space` | 空格 |
+| `Space` | Space |
 | `Tab` | Tab |
-| `Enter` (`Return`) | 回车 |
-| `Backspace` (`Back`) | 退格 |
+| `Enter` (`Return`) | Enter |
+| `Backspace` (`Back`) | Backspace |
 | `Insert` (`Ins`) | Insert |
 | `Delete` (`Del`) | Delete |
 | `Home` | Home |
 | `End` | End |
 | `PageUp` (`PgUp`) | PageUp |
 | `PageDown` (`PgDn`) | PageDown |
-| `Up` / `Down` / `Left` / `Right` | 方向键 |
+| `Up` / `Down` / `Left` / `Right` | Arrow keys |
 | `Pause` | Pause |
-| `Num0`~`Num9` | 小键盘 0~9 |
+| `Num0`~`Num9` | Numpad 0~9 |
 
-### 鼠标
+### Mouse
 
-| 写法 | 按键 |
+| Syntax | Button |
 |---|---|
-| `Middle` (`MMB`) | 鼠标中键 |
-| `LMB` | 鼠标左键 |
-| `RMB` | 鼠标右键 |
-| `X1` | 鼠标侧键 1 (前进键) |
-| `X2` | 鼠标侧键 2 (后退键) |
+| `Middle` (`MMB`) | Middle mouse button |
+| `LMB` | Left mouse button |
+| `RMB` | Right mouse button |
+| `X1` | Side button 1 (forward) |
+| `X2` | Side button 2 (back) |
 
-## 各功能默认
+## Defaults per feature
 
-| 功能 | 默认 `Hotkey` | 说明 |
+| Feature | Default `Hotkey` | Notes |
 |---|---|---|
-| 巡逻圈 `[PatrolCircle]` | `Z+Middle` | 按住 Z 划中键画圈; 范围智能组合认领时让路 |
-| 智能下令 `[SmartOrder]` | `Middle` | 裸中键点按自适应(移动/攻击/进入/进驻)/划线散开; 按住 Z 让路巡逻, 按住 Ctrl 让路模糊, 组合中键让路区域自适应 |
-| 砍树 `[TreeChop]` | `Ctrl+Z+Middle` | 三键齐按 |
-| 模糊攻击 `[FuzzyAttack]` | `Ctrl+Middle` | 按住 Z 时让路巡逻/砍树; Ctrl+Shift+中键也归模糊; 按住时红色规划线连到分到的敌, 松手即消 |
-| 移动攻击 `[Features]` (`AttackMove`, 单行) | `X2` | 原版 Ctrl+Shift+左键的移动攻击 (Mission=29); 单键 (如 `X2`/`A`) 按悬停格直发, 组合左键 (如 `A+LMB`) 按左键沿下单; 按住 Z 排队 (路径点); 左键组合会附带一次原版点选, 介意就用单键 |
-| 范围智能 `[SmartArea]` | `Shift+Middle`（主键须是 `Middle`，可改单键如 `X1`） | 点按/划线扫块(轨迹各节点)挑目标, 按住时绿色细线连到分到的目标(松手即消), 按各自光标下对象令(不移动); 光标查询走单位固有光标 (ignoreForce=1), 物理 Shift/Ctrl 不污染判定; 无令时按规则表: 非本家载具/飞机/步兵(非建筑)强攻、工程师对建筑/空车占领(按目标限 1)、步兵对自家载具进入、本家其余跳过、非工程师步兵对建筑待命; 松开即执行; 待命等脏键全松后重判; 含 Ctrl 时归模糊，Z 不禁 |
-| 心控收敛 `[Features]` (`MindSelect`, 单行) | `Shift+P` | 结尾只剩心控单位 |
-| 超武侧栏 `[SWSidebar]` | `F4` (`ToggleKey`) | 显示/隐藏右侧超武侧栏(隐藏不占空间) |
-| 隐藏侧栏 `[Sidebar]` | `F11` (`ToggleKey`) | 原版侧栏三态循环: 完全显示/只留小地图和按钮/全屏 |
-| 单机暂停 `[BottomBar]` | `F5` (`PauseHotkey`) | 暂停/恢复(仅遭遇战/战役, 联机不响应; `PauseEnable=0` 则整个不启用); 底栏左键: 暂停/恢复与单步一帧各一钮(启用后按过一次 F5 才显示, 之后常显) |
+| Patrol circle `[PatrolCircle]` | `Z+Middle` | Hold Z and drag with the middle button to draw a circle; yields to range-smart claiming |
+| Smart order `[SmartOrder]` | `Middle` | Bare middle click adapts (move/attack/enter/garrison), drag to scatter; hold Z to yield to patrol, hold Ctrl to yield to fuzzy, middle combos yield to area-adaptive |
+| Tree chop `[TreeChop]` | `Ctrl+Z+Middle` | All three keys together |
+| Fuzzy attack `[FuzzyAttack]` | `Ctrl+Middle` | Yields to patrol/tree-chop while Z is held; Ctrl+Shift+Middle also counts as fuzzy; while held a red planning line connects to the assigned enemy and disappears on release |
+| Attack-move `[Features]` (`AttackMove`, single line) | `X2` | The vanilla Ctrl+Shift+left-click attack-move (Mission=29); a single key (e.g. `X2`/`A`) fires directly at the hovered cell, a left-click combo (e.g. `A+LMB`) issues on left click; hold Z to queue (waypoints); left-click combos also perform one vanilla selection click — use a single key if you mind that |
+| Range-smart `[SmartArea]` | `Shift+Middle` (primary must be `Middle`; can be changed to a single key like `X1`) | Click/drag over blocks (each node of the path) to pick targets; while held a thin green line connects to each assigned target (gone on release), each object is ordered by its own cursor rule (no moving); cursor queries use the unit's inherent cursor (ignoreForce=1), physical Shift/Ctrl does not pollute the check; with no order a rule table applies: non-owned vehicles/aircraft/infantry (not buildings) → force-attack, engineers vs buildings/empty vehicles → capture (target-limited to 1), infantry vs own vehicles → enter, other owned units are skipped, non-engineer infantry vs buildings → guard; release to execute; guard re-evaluates after all dirty keys are released; with Ctrl held it counts as fuzzy, Z is not blocked |
+| Mind-control filter `[Features]` (`MindSelect`, single line) | `Shift+P` | Keeps only mind-controlled units at the end |
+| Superweapon sidebar `[SWSidebar]` | `F4` (`ToggleKey`) | Show/hide the right superweapon sidebar (hidden takes no space) |
+| Hide sidebar `[Sidebar]` | `F11` (`ToggleKey`) | Vanilla sidebar three-state cycle: full / minimap+buttons only / fullscreen |
+| SP pause `[BottomBar]` | `F5` (`PauseHotkey`) | Pause/resume (skirmish/campaign only, ignored online; `PauseEnable=0` disables it entirely); bottom bar left-click: separate pause/resume and single-frame-step buttons (shown after the first F5 press, then always visible) |
