@@ -1,0 +1,57 @@
+name: build
+
+# Guards the two things the local build cannot guard on its own:
+#   1. that the tree still compiles at all (it did not: a "bp cannot be used in
+#      'asm' here" error in BuildQueue.cpp only showed up on a modern GCC),
+#   2. that -Wall -Wextra stay silent (they are clean as of the audit).
+#
+# Toolchain: MSYS2 mingw32, i686-w64-mingw32. The DLL is 32-bit, so the
+# x86_64 toolchain shipped with the runner (and with CLion) will not link it.
+# The project deliberately gitignores its own copy of MinGW (see /tools in
+# .gitignore), which is why CI has to install one.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install 32-bit MinGW
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          update: false
+          install: >-
+            mingw-w64-i686-gcc
+
+      - name: Build
+        shell: pwsh
+        run: |
+          $g = Get-ChildItem -Path $env:RUNNER_TEMP -Recurse -Filter g++.exe -Depth 4 -ErrorAction SilentlyContinue |
+               Where-Object { $_.FullName -match 'mingw32' } | Select-Object -First 1
+          if (-not $g) { throw 'i686 g++ not found after toolchain setup' }
+          $env:MOE_MINGW = Split-Path $g.FullName
+          Write-Host "MOE_MINGW=$env:MOE_MINGW"
+          & "$env:MOE_MINGW\g++.exe" --version | Select-Object -First 1
+
+          $out = (cmd /c "build-fast.bat" 2>&1) -join "`n"
+          Write-Host $out
+
+          if ($LASTEXITCODE -ne 0) { throw "build failed with exit code $LASTEXITCODE" }
+          if ($out -match 'warning:') { throw 'compiler warnings present - -Wextra is supposed to be silent' }
+          if (-not (Test-Path 'dist\MOExperience.dll')) { throw 'dist\MOExperience.dll was not produced' }
+
+          $dll = Get-Item 'dist\MOExperience.dll'
+          Write-Host ("built {0} ({1:N0} bytes)" -f $dll.Name, $dll.Length)
+
+      - name: Upload DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: MOExperience
+          path: dist/MOExperience.dll
+          if-no-files-found: error
