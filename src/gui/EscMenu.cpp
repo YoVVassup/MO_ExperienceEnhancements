@@ -3915,7 +3915,7 @@ static void Esc_OpenLink(int link)
     {
         HMODULE lib = LoadLibraryA("shell32.dll");
 
-        if (lib) s_open = (EscShellExec)GetProcAddress(lib, "ShellExecuteW");
+        if (lib) s_open = (EscShellExec)(void*)GetProcAddress(lib, "ShellExecuteW");
     }
     if (!s_open) { LogLine("esc: no ShellExecuteW"); return; }
     s_open(NULL, L"open", s_LinkUrl[link], NULL, NULL, SW_SHOWNORMAL);

@@ -1650,7 +1650,7 @@ static void Wth_PxGlow(unsigned char* base, int pitch, int ox, int oy,
  * 臂用淡一档的同色系; 朝下那几笔压暗, 亮底上才看得见 (纯白在雪原上会糊掉)。
  * 臂长由 size 给, 大片 (sz) 再 +1。 */
 static void Wth_PxFlake(unsigned char* base, int pitch, int ox, int oy,
-                        int w, int h, const WthPx* p, const WthKind* k)
+                        int w, int h, const WthPx* p, const WthKind*)
 {
     const int* lc = g_LitA[p->kind];
     const int cr = lc[0], cg = lc[1], cb = lc[2];

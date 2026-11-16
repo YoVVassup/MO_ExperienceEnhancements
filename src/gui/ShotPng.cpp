@@ -56,10 +56,10 @@ int ShotPng_Init(void)
 
     s_Mod = LoadLibraryA("gdiplus.dll");
     if (!s_Mod) return 0;
-    startup = (SPNG_STARTUP)GetProcAddress(s_Mod, "GdiplusStartup");
-    s_Create = (SPNG_CREATE)GetProcAddress(s_Mod, "GdipCreateBitmapFromScan0");
-    s_Save = (SPNG_SAVE)GetProcAddress(s_Mod, "GdipSaveImageToFile");
-    s_Dispose = (SPNG_DISPOSE)GetProcAddress(s_Mod, "GdipDisposeImage");
+    startup = (SPNG_STARTUP)(void*)GetProcAddress(s_Mod, "GdiplusStartup");
+    s_Create = (SPNG_CREATE)(void*)GetProcAddress(s_Mod, "GdipCreateBitmapFromScan0");
+    s_Save = (SPNG_SAVE)(void*)GetProcAddress(s_Mod, "GdipSaveImageToFile");
+    s_Dispose = (SPNG_DISPOSE)(void*)GetProcAddress(s_Mod, "GdipDisposeImage");
     if (!startup || !s_Create || !s_Save || !s_Dispose) return 0;
 
     si.ver = 1;

@@ -312,7 +312,7 @@ static void VecBriefWhy(int why, int v)
 
 /* 单字格宽 = 字体前进宽 (ABC 全宽) + 字距, 与 GDI/DirectWrite 同规则。
  * 不用统一格宽或引擎 fnt 宽度表, 否则 CJK 混排间距不均。 */
-static int VecBriefCellW(void* font, wchar_t ch, int px, int tr)
+static int VecBriefCellW(void*, wchar_t ch, int px, int tr)
 {
     int ga;
     if (Icon_Is((unsigned)ch))
@@ -849,7 +849,7 @@ static int VecIsPhobosWarnS(const wchar_t* s)
  * 字形替换。用计数而非布尔: 入口可能嵌套。 */
 static int g_NoVec = 0;
 
-int __fastcall VecDrawTextEntry(void* t, void* e,
+int __fastcall VecDrawTextEntry(void* t, void*,
     int a1, int a2, int a3, int a4, int a5,
     int a6, int a7, int a8, int a9, int a10)
 {
@@ -974,7 +974,7 @@ int __fastcall VecPrintEntry(void* t, void* e,
     return r;
 }
 
-static int __fastcall VecPrintBody(void* t, void* e,
+static int __fastcall VecPrintBody(void* t, void*,
     int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
     int r;

@@ -51,7 +51,16 @@ set "SRCINC=-Isrc -Isrc\core -Isrc\gui -Isrc\order -Isrc\sidebar -Isrc\preview -
 rem -fno-unwind-tables / -fno-asynchronous-unwind-tables: nothing here throws or
 rem unwinds (no _Unwind_*, no catch), but 32-bit mingw emits .eh_frame for every
 rem function by default -- 64 KB in the DLL for tables nobody reads.
-set "CXXFLAGS=-O2 -Wall -fno-exceptions -fno-rtti -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-builtin-memset -fno-builtin-memcpy -fno-builtin-memmove -fno-builtin-strlen -fno-builtin-strcmp -fno-builtin-sin -fno-builtin-cos %SRCINC% -c"
+rem
+rem -Wextra is on and the tree is clean under it. The single opt-out,
+rem -Wmissing-field-initializers, is deliberate: C++ aggregate init
+rem value-initializes every omitted member, so the ~69 hits are false
+rem positives on the static descriptor tables (EscMenu s_TChoice/s_TToggle/
+rem s_TextNum, Weather g_Layer, SWSBar s_Tip, PowerDisplay g_PwrCache).
+rem Writing those zeros out by hand buys nothing and risks a field-order
+rem mistake that the compiler cannot see. -Wcast-function-type and
+rem -Wunused-parameter are NOT disabled - they are fixed in the sources.
+set "CXXFLAGS=-O2 -Wall -Wextra -Wno-missing-field-initializers -fno-exceptions -fno-rtti -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-builtin-memset -fno-builtin-memcpy -fno-builtin-memmove -fno-builtin-strlen -fno-builtin-strcmp -fno-builtin-sin -fno-builtin-cos %SRCINC% -c"
 
 if not exist obj mkdir obj
 
