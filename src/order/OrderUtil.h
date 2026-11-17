@@ -367,7 +367,7 @@ int OU_PrevThrottle(unsigned* lastMs, int* lastCx, int* lastCy, int* lastKey,
  * End/PageUp/PageDown/Up/Down/Left/Right/Pause/Num0~Num9, Middle/MMB/LMB/RMB/
  * X1/X2 (鼠标)。
  * "None"/"Off"/"Disabled" = 禁用; 多位纯数字串 = 老 TriggerVK 数值兼容。
- * 完整键表见 Hotkey.md。 */
+ * 完整键表见 Hotkey.zh.md。 */
 #define OU_MOD_CTRL  0x01u
 #define OU_MOD_SHIFT 0x02u
 #define OU_MOD_ALT   0x04u

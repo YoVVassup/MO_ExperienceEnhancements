@@ -1,136 +1,138 @@
-## 更新内容
-## v1.0x 暂定 发布前记录
-新功能或改进：
-- 侵略模式忽略无敌类敌人和可选忽略重点科技建筑
-- 添加跳过phobos版本警告绘制开关，关闭后也跳过重绘
+**Language: English | [Русский](Changelog.ru.md) | [简体中文](Changelog.zh.md)**
 
-修复问题:
-- f11隐藏侧栏时，对底栏进行填充，避免黑色或重影或显示截断
-- 添加对yr原版的兼容，避免存档干扰遭遇战界面，改善800x600下读档页面布局
-- 侧栏不再影响phobos文本布局计算，不会导致文本重叠了
-- 设置页输入框应该没输入问题了
+## Changelog
+## v1.0x tentative — pre-release notes
+New features or improvements:
+- Aggressive mode ignores invulnerable enemies; optionally ignores key tech buildings
+- Added a switch to skip drawing the Phobos version warning; when off, the redraw is skipped too
 
-## v1.05 
-新功能或改进：
-- 单位面板支持显示中立或敌人一些基本信息
-- 将护甲倍率0和大于999倍显示为无穷
-- 右键从选中单位内踢出特定单位或组
-- 添加了音量扩容的开关,配置中默认关闭,似乎没什么区别...
-- 游戏读档后可盟友旁建造了(如果设定的不许仍然不行)
+Fixes:
+- When hiding the sidebar with F11, the bottom bar is now filled in, avoiding black areas, ghosting or truncated display
+- Added compatibility with vanilla YR: saves no longer interfere with the skirmish UI; improved the load-game page layout at 800x600
+- The sidebar no longer affects Phobos text layout calculations, so text no longer overlaps
+- Input boxes on the settings page should no longer have input problems
 
-修复问题:
-- 修复遗留的一些图标或画框画线在底栏的残留
-- 修复通信信标在黑幕内没显示指向箭头
-- 修复小地图区域地图边缘无法移动
-- 修复shift+中键在远大于目标时目标数量分配不均匀问题
-- 在文本框预设文本中加入输入法位置修复
+## v1.05
+New features or improvements:
+- The unit panel can now show some basic info of neutral or enemy units
+- Armor multipliers of 0 and above 999 now display as infinity
+- Right-click kicks a specific unit or group out of the selection
+- Added a switch for volume expansion, off by default in the config; seems to make no difference...
+- After loading a save you can build next to allies again (still disallowed if configured otherwise)
+
+Fixes:
+- Fixed some leftover icons or frame/line drawings remaining on the bottom bar
+- Fixed the communication beacon not showing its direction arrow under the shroud
+- Fixed the map edge being immovable in the minimap area
+- Fixed uneven target distribution with shift+middle-click when the target is much larger
+- Added an IME position fix to the preset texts in the text box
 
 ## v1.0
-新功能或改进：
-- 添加**小窗口**功能，小窗口可以点击地图移动位置或右键移动画面  
-  启用警报图标自动跳转最近事件，启用鼠标图标支持操作，可监控AI或远程下令
-  按F可无焦点跟随单位，包括敌人
-- 添加单位**信息面板**功能，查看基本信息
-  支持查看弹药，升级能力，自愈，矿石等信息
-  支持查看载具的载员，支持选择某一类单位
-  支持卸载特定载员，但在联机中禁用
-  支持在载具内对成员使用路径点，且支持多选
-- 单位面板侧栏，可关闭或启用部分功能
-  支持折叠面板，或将升级信息持久化显示
-  支持wasd模式切换，对单兵作战类有用，鸡肋玩具...
-  支持收藏单位和显示箭头，可标记通信信标位置
-- 添加了存读档预览图功能
-- 添加了许多适用于摆基地**截图**的功能
-- 添加了**环境控制**，可自由更改游戏内的不合理光照
-- 添加了新天气控制，可设置贴图或粒子效果显示，下雨有雨声，下雪有风声，闪电有雷声
-- 添加了云影或雾气显示，添加氛围
-- 底栏加截图键，默认隐藏，按原分辨率截图，并隐藏UI，可做到截取整个游戏地图
-- 初步添加了设置页面，简化了许多功能的配置流程，这个页面也可禁用
-- 初步添加了多语言支持，自动切换
-- 添加了文本输入框预设文本，按上下键调用
-- 添加了游戏内UI切换，并添加对应的触发，触发更改显示是临时的（只需要此功能时，可关掉其它功能）
-- 添加了游戏内颜色切换，包括彩虹色
-- 将一些功能图标ui从简笔画升级为图像
-- 战役结束页面添加退出按钮(因继续时下一关，有些战役会卡触发和状态)
-- 添加了建筑放置或展开虚影，并避让phobos
-- 添加了战役显示工具箱类型，对遭遇战的随机工具箱无效
-- 添加了局部欢呼功能
-- 添加了过滤掉心控来的单位的损失提示
-- 改善了快速砍树功能，过滤掉矿柱，添加了路灯等杂物，不能攻击树木的单位不再分配
-- 改善 shift+中键 目标分配，可合理的维修或占领空载具，支持EP电厂和坦克碉堡
-- 改善了alt+a 侵略模式，因有些攻城单位守卫范围太近，支持瞄单位了，改善不主动攻击的单位
-- 应要求，添加了PVP作弊声明，这对联机PVE和观战没影响
+New features or improvements:
+- Added the **small window** feature: click the map in the small window to jump, right-click to move the view  
+  Enable the alert icon to auto-jump to the latest event; enable the mouse icon for remote control — you can watch the AI or issue orders remotely
+  Press F to follow units without focus, including enemies
+- Added the unit **info panel** for basic info
+  Shows ammo, veterancy, self-heal, ore and other info
+  Shows a vehicle's passengers; supports selecting one unit type
+  Supports unloading specific passengers, disabled online
+  Supports waypoints for members inside a vehicle, with multi-select
+- Unit panel sidebar: some features can be turned off or on
+  Supports collapsing the panel, or persistently showing veterancy info
+  Supports a WASD mode toggle, useful for solo-infantry missions — a niche toy...
+  Supports favoriting units and showing arrows; can also mark communication beacon positions
+- Added save/load preview thumbnails
+- Added many **screenshot** features suited for base-posing
+- Added **environment control**, freely change unreasonable in-game lighting
+- Added new weather control: texture or particle effects; rain has rain sounds, snow has wind sounds, lightning has thunder
+- Added cloud shadows or fog display for atmosphere
+- Added a screenshot key on the bottom bar, hidden by default; takes a screenshot at native resolution with the UI hidden, enough to capture the whole game map
+- Preliminarily added a settings page, simplifying the configuration flow for many features; the page can also be disabled
+- Preliminarily added multi-language support with automatic switching
+- Added preset texts for the text input box, recalled with the up/down keys
+- Added in-game UI switching with a corresponding trigger; trigger-based changes are temporary (turn off other features when you only need this one)
+- Added in-game color switching, including rainbow colors
+- Upgraded some feature icons from stick figures to images
+- Added an exit button to the campaign end screen (continuing to the next mission could get stuck on triggers/state in some campaigns)
+- Added a ghost preview for building placement/deploy, avoiding Phobos
+- Added crate type display for campaigns; does not affect random crates in skirmish
+- Added local cheering
+- Added filtering of loss notices for mind-controlled units
+- Improved quick tree chopping: filters out ore pillars, includes street lamps and other clutter; units that can't attack trees are no longer assigned
+- Improved shift+middle-click target assignment: can repair or capture empty vehicles sensibly, supports EP power plants and tank bunkers
+- Improved alt+a aggressive mode: some siege units have too-small guard ranges, so targeting units is supported; improved units that don't attack by default
+- As requested, added a PVP cheat declaration; has no effect on online PVE or spectating
 
-修复游戏功能
-- 光照修复，光照锯齿修复，可选两种光照的混色比例
-- 矿石可被环境染色了
-- 解除了500显示后无法框选的上限，并添加查询接口
-- 修复了游戏自身的读档观战功能，避免AI战败结束
-- 修复cncddraw导致游戏菜单页面占用过高的问题
+Fixes to game functions
+- Lighting fix, jagged-lighting fix, configurable blend ratio between the two lighting types
+- Ore can now be tinted by the environment
+- Lifted the 500-displayed-units box-select limit and added a query interface
+- Fixed the game's own save-load spectating, avoiding the game ending when an AI is defeated
+- Fixed cncddraw causing excessive CPU usage on the game menu screen
 
-修复与避让：
-- 中键移动添加过滤，不再能随意操控别人单位，但出于移动挡路单位目的，可有限的移动2格
-- 修复建筑队列在联机中因延迟不稳定问题
-- 修复空军的范围显示，改为按投影为中心绘制
-- 修复对空绘制线条，起点单位，末端地面投影，由于空军高度不同画圆柱奇怪，因此可设假设高度
-- 修复 ctrl+维修 没有生效问题，以及随游戏进行逐渐不可靠问题
-- 修复超武面板在超武太多时显示不全问题
-- 避让与兼容
-  避免phobos侧栏提示显示双份
-  解除500限制自动在phobos环境禁用
-  自动装车添加了500限制查询能力，旧版可能会崩溃
+Fixes and avoidance:
+- Middle-click move now has filtering: you can no longer freely control other players' units, but units blocking the way can be moved 2 cells for pathing purposes
+- Fixed the building queue being unstable online due to latency
+- Fixed range display for air units: now drawn centered on the ground projection
+- Fixed anti-air line drawing: starts at the unit, ends at the ground projection; since air units fly at different heights drawing cylinders looks odd, so an assumed height can be set
+- Fixed ctrl+repair not taking effect, and becoming gradually unreliable as the game goes on
+- Fixed the superweapon panel not displaying fully when there are too many superweapons
+- Avoidance and compatibility
+  Prevents double-drawn Phobos sidebar hints
+  The 500 limit is automatically disabled in a Phobos environment
+  Auto-loading got a query capability for the 500 limit; the old version might crash
 
-其它
-- 为避免解除500上限崩溃，需要更新自动装车扩展
-- 修复了cnc-ddraw设置界面没有缩放和CPU占用过高
-  使用旧版cnc-ddraw时，MOE启用自身的限帧策略，修复版cncddraw提供了查询，避免冲突
-  MOE自身不提供界面缩放修复
+Other
+- To avoid crashes when lifting the 500 cap, the auto-loading extension needs updating
+- Fixed cnc-ddraw settings screen having no scaling and excessive CPU usage
+  With an old cnc-ddraw, MOE enables its own frame-cap strategy; fixed cncddraw versions provide a query to avoid conflicts
+  MOE itself does not provide UI scaling fixes
 
 ## v0.99
-新功能或改进：
-- 支持左键攻击命令过滤掉维修单位，避免维修单位送死
-- 添加简易的侵略模式，单位/工程师在闲置时自动攻击/自动占领建筑
-- 无攻击能力单位过滤支持更广，从中键点击扩展到其它中键命令
-- 超武侧栏支持填充排序，即先填满两列，再填满三列四列，最终再向下滚动，可右键点击折叠按钮切换。
-- 超武侧栏提示支持显示消耗资金，资金不足时不再能选中。
-- 支持模糊下令时工程师批量维修建筑,批量占空载具；批量劫持等
-- 战役文本支持设置延迟扩展显示完整历史
+New features or improvements:
+- Left-click attack commands now filter out repair units, preventing them from running to their deaths
+- Added a simple aggressive mode: units/engineers auto-attack/auto-capture buildings when idle
+- Filtering of units without attack ability is broader: extended from middle-click to other middle-click commands
+- Superweapon sidebar supports fill sorting: fill two columns first, then three, then four, then scroll down; toggle by right-clicking the collapse button
+- Superweapon sidebar hints can show the cost; you can no longer select one when funds are insufficient
+- Fuzzy orders support bulk building repair by engineers, bulk capture of empty vehicles; bulk hijacking, etc.
+- Campaign text supports a configurable delay to extend and show full history
 
-修复：
-- 尝试修复不同渲染下不同分辨率下可能出现的显示坐标偏移
-- 修复shift无害化问题，可以配合中键下令了，因此模糊分配目标回归shift+中键
-- 修复建筑自动驱离单位时，中心单位被保留问题
-- 结算界面回归游戏原始绘制，因为文本空间不足。
-- 修复大量设置聚集点路径时造成崩溃的问题，线条改为虚线
-- 不再能够操纵别人的建筑设置路径点了
-- 超武图标支持shp格式,简单说就是自定义无图标超武从空白到显示紫球了，支持原版shp了。
-- 尝试修复0.98意外导致的与phobos共存时崩溃，尝试避让其它模块钩子
+Fixes:
+- Attempted to fix display coordinate offsets that could occur at various resolutions under different renderers
+- Fixed shift being made harmless; it can now be combined with middle-click orders, so fuzzy target assignment returns to shift+middle-click
+- Fixed the center unit being kept when buildings auto-scatter units
+- The score screen reverted to the game's original drawing due to insufficient text space
+- Fixed crashes when setting many rally-point paths; lines changed to dashed
+- Can no longer set paths for other players' buildings
+- Superweapon icons now support SHP format: in short, custom superweapons without icons went from blank to showing a purple ball; vanilla SHP is supported
+- Attempted to fix crashes introduced in 0.98 when coexisting with Phobos; attempted to avoid other modules' hooks
 
 ## v0.98
-新功能或改进
-- 添加雷达事件跳转，可设置不同事件文本。 (其实是空格跳转加了个列表记录历史)
-- 支持工厂按Z设置路径 (用的路径点实现，比较鸡肋)
-- 模糊下令支持路径点
+New features or improvements
+- Added radar event jumps with configurable event texts. (It's really the space-bar jump plus a list recording history)
+- Supports setting factory paths with Z (implemented with waypoints, somewhat niche)
+- Fuzzy orders support waypoints
 
-修复:
-- 修复意外破坏的砍树功能，规则：单位少树多时给单位分配多个树,单位多树少时每个树分配多个单位
-- 修复超武侧栏右侧长文本被裁剪，改善显示，支持了换行
-- 修复选中单位时无法释放超武，改为与游戏一致，选超武时取消单位选中状态
-- 修复建筑建造列表因为科技丢失或限造导致卡住
-- 修复意外破坏的战役文本，有些文字比如"上下"因为横太长被丢弃了整行
+Fixes:
+- Fixed the accidentally broken tree-chopping feature: rule — few units, many trees → assign multiple trees per unit; many units, few trees → assign multiple units per tree
+- Fixed long text on the right side of the superweapon sidebar being clipped; improved display, added line wrapping
+- Fixed being unable to fire superweapons while units are selected; changed to match the game: selecting a superweapon deselects units
+- Fixed the building construction list getting stuck due to lost tech or build limits
+- Fixed accidentally broken campaign text: some strings like "up/down" were dropped entirely because they were too long
 
 ## v0.95
-第一次公开，略。
+First public release, omitted.
 
 
-## 下载地址
+## Download links
 github:
 https://github.com/MagicShiba/MO_ExperienceEnhancements  
 
-百度盘:
+Baidu Netdisk:
 https://pan.baidu.com/s/1Lgg7bPCghPIwQYQ-vKUqfg?pwd=ff2k  
-提取码：ff2k 
+Extraction code: ff2k 
 
-永硕盘:
+Ys100 disk:
 https://hxyy.ysepan.com/
-在 红警MOD工具和帮助 文件夹
+In the "Red Alert MOD tools and help" folder

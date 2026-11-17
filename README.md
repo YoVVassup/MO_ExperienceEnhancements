@@ -7,6 +7,7 @@ While adding new features and reducing operational complexity, it always keeps m
 It does not modify any in-game `.ini` files.  
 Supported version: 3.3.6; in theory it is also compatible with other mods that use the same ARES.  
 You may use it in online PvE, but not in PvP — that is not what it is intended for. I bear no ill will toward players, but using it in PvP will automatically and repeatedly notify the other players that you are cheating.  
+
 ![alt text](docs/imgs/MO_logo_header.png)
 
 ## What does this project do?
@@ -92,6 +93,7 @@ x Replay support and an internal list
 
 ## Sponsor tokens
 ### -> [Cyber-begging](docs/Sponsor.md)
+
 ![alt text](docs/img_sbqt/h-凝视1.png)
 
 ## Notes
