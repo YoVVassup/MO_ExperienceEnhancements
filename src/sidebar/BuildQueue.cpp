@@ -457,7 +457,10 @@ static int BQ_ProduceInTransit(void* house)
 
 /* 复刻一次点击下单 (PRODUCE 事件手工进 OutList, 见文件头)。
  * OutList 满返回 0 (下帧重试), 否则返回 1。 */
-static int BQ_FireProduce(void* house, void* type)
+/* noinline: gcc 14 -O2 内联进 BuildQueue_Poll (需要帧指针) 后, 下面 asm 的
+ * bp clobber 会报 "bp cannot be used in 'asm' here" 编译错。保持独立函数
+ * (自身 -O2 无帧指针) 时原版 clobber 语义编译正常且运行时语义与原版一致。 */
+static int __attribute__((noinline)) BQ_FireProduce(void* house, void* type)
 {
     unsigned count;
     unsigned next;
@@ -486,24 +489,16 @@ static int BQ_FireProduce(void* house, void* type)
 
     /* 同款无参回调 + 取调用后 EAX 存并行数组 (与原版同序)。 */
     snd = *(Fn_SndCb*)0x7E1530u;
-    /* 必须列出 ebx/esi/edi: 引擎这个回调是真实函数, 会动 callee-saved
-     * 寄存器, 而编译器以为它不会 —— 于是下面用 next/count 写 OutList_Count /
-     * OutList_Next 时可能拿到垃圾, 引擎同帧按这份坏账本去派发事件就会跳进堆
-     * (0xC0000005, EIP 落在非代码区)。
-     * ebp 不能进 clobber 列表: 它是帧指针, 一旦本函数(或被内联进来的调用者)
-     * 真的需要帧指针, GCC 就报 "bp cannot be used in 'asm' here" —— -O0 在
-     * :504 必炸, -O2 把 BQ_FireProduce 内联进 BuildQueue_Poll 后在 :587 炸,
-     * 换 -fomit-frame-pointer 也没用。改用 asm 内 push/pop: 调用前后 ebp 真值
-     * 不变, 正是编译器对 callee-saved 的假设, 引擎对 ebp 的破坏也被 pop 抹掉,
-     * 原本这个 clobber 要防的垃圾账本照样防住。 */
     __asm__ volatile (
-        "pushl %%ebp\n\t"
         "call *%1\n\t"
-        "popl %%ebp\n\t"
         "movl %%eax, %0"
         : "=r" (eaxAfter)
         : "r" (snd)
-        : "ecx", "edx", "ebx", "esi", "edi", "cc", "memory");
+        /* 必须列出 ebx/esi/edi/ebp: 引擎这个回调是真实函数, 会动 callee-saved
+         * 寄存器, 而编译器以为它不会 —— 于是下面用 next/count 写 OutList_Count /
+         * OutList_Next 时可能拿到垃圾, 引擎同帧按这份坏账本去派发事件就会跳进堆
+         * (0xC0000005, EIP 落在非代码区)。*/
+        : "ecx", "edx", "ebx", "esi", "edi", "ebp", "cc", "memory");
     *(unsigned*)(ADDR_OUT_PAR + next * 4u) = eaxAfter;
 
     *(unsigned*)ADDR_OUT_NEXT = (next + 1u) & 0x7Fu;
